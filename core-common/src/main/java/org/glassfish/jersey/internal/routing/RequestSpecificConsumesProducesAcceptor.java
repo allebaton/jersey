@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2025 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -90,6 +90,22 @@ public final class RequestSpecificConsumesProducesAcceptor<MethodRouting> implem
     @Override
     public String toString() {
         return String.format("%s->%s:%s", consumes, produces, methodRouting);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RequestSpecificConsumesProducesAcceptor<?> that = (RequestSpecificConsumesProducesAcceptor<?>) o;
+        return producesFromProviders == that.producesFromProviders
+                && Objects.equals(consumes, that.consumes)
+                && Objects.equals(produces, that.produces)
+                && Objects.equals(methodRouting, that.methodRouting);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(consumes, produces, methodRouting, producesFromProviders);
     }
 
 }
